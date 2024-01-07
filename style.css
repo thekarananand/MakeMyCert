@@ -39,7 +39,7 @@ body[data-darkmode="true"] {
 
 html {
     color-scheme: dark;
-    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 html:has(body[data-darkmode=false]) {
