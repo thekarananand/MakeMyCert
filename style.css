@@ -11,7 +11,7 @@
 
 body[data-darkmode="false"] {
     --color-text-1: hsl(0, 0%, 0%);
-    --color-text-2: hsl(0, 0%, 31%);
+    --color-text-2: hsl(0, 0%, 20%);
 
     --color-bg-1: hsl(0, 0%, 97%);
     --color-bg-2: hsl(0, 0%, 75%);
@@ -49,7 +49,7 @@ html:has(body[data-darkmode=false]) {
 body {
     background-color: var(--color-bg-2);
     height: 100vh;
-    grid-template-rows: 4rem auto;
+    grid-template-rows: 4rem ;
 }
 
 header {
@@ -81,6 +81,10 @@ main{
     grid-template-columns: auto 33ch;
 }
 
+main > * {
+    max-height: calc( 100vh - 4rem );
+}
+
 #cert-view svg {
     position: absolute;
     top: 50%;
@@ -110,10 +114,11 @@ main > aside{
     padding-inline: var(--w-side);
     font-size: 0.9rem;
     border-left: 1px solid var(--color-border);
+    overflow-y: auto;
 }
 
 main > aside > * {
-    margin-block: .75rem;
+    margin-top: .75rem;
 }
 
 main > aside label {
