@@ -289,7 +289,16 @@ function mark_object_selected(){
 }
 
 function unmark_object_selected(){
+    select_box.animate({
+        top: `0px`,
+        left:`0px`,
+        height:`0px`,
+        width:`0px`,
+        padding: `0px`
+    } , {duration: 0, fill: "forwards"}) 
+
     select_box.removeAttribute('style')
+
 }
 
 
