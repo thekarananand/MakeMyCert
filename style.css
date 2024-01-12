@@ -7,14 +7,17 @@
     --w-side: 20px;
 
     --border-radius: 0.25rem;
+
+    --element-margin: 1rem;
 }
 
 body[data-darkmode="false"] {
     --color-text-1: hsl(0, 0%, 0%);
-    --color-text-2: hsl(0, 0%, 20%);
+    --color-text-2: hsl(0, 0%, 30%);
 
-    --color-bg-1: hsl(0, 0%, 97%);
+    --color-bg-1: hsl(0, 0%, 95%);
     --color-bg-2: hsl(0, 0%, 75%);
+    --color-bg-3: hsl(0, 0%, 90%);
 
     --color-border: hsl(0, 0%, 55%);
 }
@@ -25,6 +28,7 @@ body[data-darkmode="true"] {
 
     --color-bg-1: hsl(0, 0%, 16%);
     --color-bg-2: hsl(217, 5%, 8%);
+    --color-bg-3: hsl(217, 5%, 12%);
 
     --color-border: hsl(0, 0%, 47%);
 }
@@ -64,18 +68,7 @@ header > div {
     gap: 1rem;
 }
 
-header button {
-    padding: 0.5rem 0.75rem;
-    background-color: var(--color-bg-1);
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius);
-    gap: 0.5rem;
-}
 
-header button svg{
-    height: 1rem;
-    width: 1rem;
-}
 
 main{
     grid-template-columns: auto 33ch;
@@ -96,18 +89,18 @@ main > * {
 }
 
 #cert-view svg * [data-hover=true] {
-    animation: blinking linear 1000ms;
+    animation: blinking linear 600ms;
     animation-iteration-count: infinite;
     cursor: pointer;
 }
 
 @keyframes blinking {
     0%      {opacity:   1;}
-    50%     {opacity: 0.4;}
+    50%     {opacity: 0.3;}
     100%    {opacity:   1;}
 }
 
-main > aside{
+aside{
     background-color: var(--color-bg-1);
     box-sizing: border-box;
     padding-block: calc(2*var(--w-side));
@@ -117,15 +110,11 @@ main > aside{
     overflow-y: auto;
 }
 
-main > aside > * {
-    margin-top: .75rem;
+.field, hr {
+    margin-top: var(--element-margin);
 }
 
-main > aside label {
-    color: var(--color-text-2);
-}
-
-aside hr {
+hr {
     border-top: none;
     border-color: var(--color-border);
 }
@@ -154,12 +143,15 @@ aside:has(#float-graphic) {
     line-height: 1.4em;
     font-size: 0.95rem;
     color: var(--color-text-2);
-    letter-spacing: 0.4px;
+    letter-spacing: 0.1px;
 }
 
+.field label {
+    color: var(--color-text-2);
+}
 
-.field .label-margin {
-    margin-block: .7rem;
+.field .label-margin-bottom {
+    margin-bottom: .7rem;
 }
 
 .field input[type="text"],
@@ -177,18 +169,69 @@ aside:has(#float-graphic) {
     background-color: var(--color-bg-1);
 }
 
+.field input:focus,
+.field textarea:focus{
+    outline: 1px solid var(--color-text-1);
+}
+
 .field input[type="number"] {
     padding-right: 0.5rem;
 }
 
 .field input[type="color"] {
     padding: 0.2rem;
-    cursor: pointer;
 }
 
-.field input:focus ,
-.field textarea:focus {
-    outline: 1px solid var(--color-text-2);
+.field:has(input[type="file"]) .upload-element {
+    position: relative;
+}
+
+.field:has(input[type="file"]) label {
+    height: 7rem;
+    width: 100%;
+    border: 1px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
+    gap: 0.5ch;
+    font-size: 0.9rem;
+}
+
+.field:has(input[type="file"]) label svg {
+    height: 1.4rem;
+    width: 1.4rem;
+}
+
+.field:has(input[type="file"]) span {
+    color: var(--color-text-2);
+}
+
+input[type="file"]  {
+    position: absolute;
+    top: var(--element-margin);
+    left: 0;
+    height: 7rem;
+    width: 100%;
+    opacity: 0;
+}
+
+
+.field:has(input[type="file"]) label * {
+    color: var(--color-text-1);
+}
+
+input[type="file"]:focus {
+    outline: none;
+}
+
+.field:has(input[type="file"]:focus) label {
+    outline: 1px solid var(--color-text-1);
+    /* background-color: var(--color-bg-3); */
+}
+
+.field:has(input[type="file"]:hover) label {
+    background-color: var(--color-bg-3);
 }
 
 .w-6rem {
@@ -207,7 +250,6 @@ aside:has(#float-graphic) {
 
 .text-border {border: 1px solid red}
 
-
 .field *[readonly],
 .field *[readonly]:focus {
     outline: none;
@@ -216,10 +258,20 @@ aside:has(#float-graphic) {
 
 .field:has(*[readonly]),
 .field:has(*[readonly]:focus),
+.field:has(*[data-hide=true]),
 aside *[data-hide=true] {
     opacity: 0;
     display: hidden;
     height: 0;
     visibility: hidden;
     margin: 0;
+}
+
+#select-box{
+    position: absolute;
+    background-color: rgba(0, 119, 255, 0.1);
+    border: 2px solid rgb(0, 119, 255);
+    transform: translate(-2px, -2px);
+    border-radius: var(--border-radius);
+    pointer-events: none;
 }
