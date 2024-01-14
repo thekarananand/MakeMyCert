@@ -8,6 +8,7 @@ const element_text = document.querySelector("#element-text")
 const element_name = document.querySelector("#element-name")
 const delete_btn = document.querySelector("#delete-btn")
 const image_upload = document.querySelector("#image-upload")
+const transform_scale = document.querySelector("#transform-scale")
 const x = document.querySelector("#x-pos")
 const y = document.querySelector("#y-pos")
 const hr = document.querySelectorAll("hr")
@@ -131,6 +132,7 @@ function syncAside(element) {
         font_color.removeAttribute("readonly")
         fill_color.setAttribute("readonly", true)
         image_upload.setAttribute("readonly", true)
+        transform_scale.setAttribute("readonly", true)
     }
 
     // Rect Element
@@ -145,6 +147,7 @@ function syncAside(element) {
         } else {
             image_upload.setAttribute("readonly", true)
         }
+        transform_scale.setAttribute("readonly", true)
     }
 
     // Path Element
@@ -161,7 +164,7 @@ function syncAside(element) {
         fill_color.removeAttribute("readonly")
 
         image_upload.setAttribute("readonly", true)
-
+        transform_scale.setAttribute("readonly", true)
     }
 
     if (element.tagName == "image") {
@@ -172,6 +175,8 @@ function syncAside(element) {
         font_color.setAttribute("readonly", true)
 
         image_upload.removeAttribute("readonly")
+        transform_scale.removeAttribute("readonly")
+
     }
 
     text_content.value = element.textContent;
@@ -187,6 +192,10 @@ function syncAside(element) {
     if (styles['fill']) {
         font_color.value = styles['fill']
         fill_color.value = styles['fill']
+    }
+
+    if (element.getAttribute('transform')) {
+        transform_scale.value = parseFloat(element.getAttribute('transform').replace(')','').replace('scale(','')) * 100
     }
 
     currentElement = element;
@@ -270,7 +279,31 @@ function sync_fill_color() {
     }
 }
 
+function sync_transform_scale() {
+    if (currentElement) {
+
+        const org_scale = parseFloat(currentElement.getAttribute('transform').replace(')','').replace('scale(',''))
+        const new_scale = transform_scale.value / 100
+
+        const x = parseFloat(currentElement.getAttribute('x'))
+        const y = parseFloat(currentElement.getAttribute('y'))
+
+        const width = parseFloat(currentElement.getAttribute('width'))
+        const height = parseFloat(currentElement.getAttribute('height'))
+
+        currentElement.setAttribute('transform', `scale(${new_scale})`)
+
+        currentElement.setAttribute('x', x + ( ( org_scale - new_scale ) * width  / 1.5 ))
+        currentElement.setAttribute('y', y + ( ( org_scale - new_scale ) * height / 1.5 ))
+
+        mark_object_selected()
+    }
+}
+
 function sync_pic(event) {
+
+    // transform="scale(1.1)"
+
     if (currentElement){
         const file = event.target.files[0];
         const img_ele = document.createElement("image")
@@ -326,6 +359,7 @@ function sync_pic(event) {
                     img_ele.setAttribute("x", parseFloat(currentElement.getAttribute("x")) + x_offset)
                     img_ele.setAttribute("y", parseFloat(currentElement.getAttribute("y")) + y_offset)
                     img_ele.setAttribute("preserveAspectRatio","none")
+                    img_ele.setAttribute("transform", "scale(1)")
 
                     img_ele.id = currentElement.id.replace("-placeholder","")
 
@@ -412,6 +446,7 @@ fill_color.addEventListener("input", sync_fill_color);
 x.addEventListener("input", sync_pos);
 y.addEventListener("input", sync_pos);
 image_upload.addEventListener("input", sync_pic)
+transform_scale.addEventListener("input", sync_transform_scale)
 
 window.onresize = mark_object_selected
 
