@@ -19,6 +19,15 @@ let styles = {}
 
 // console.log("init okay")
 
+function SVG_force_refresh() {
+    SVG.innerHTML += ""
+
+    const fake_ele = document.createElement("circle")
+    SVG.appendChild(fake_ele)
+
+    fake_ele.remove()
+}
+
 function DarkMode_on() {
     document.body.setAttribute("data-darkmode", "true")
     document.querySelectorAll(".icons").forEach(icon => {
@@ -78,7 +87,6 @@ function objectToInlineStyles(element) {
     }
 
     element.setAttribute('style', inlineStyles)
-    false
 }
 
 function syncAside(element) {
@@ -104,7 +112,9 @@ function syncAside(element) {
     });
 
     // reset styles
-    styles = inlineStylesToObject(element)
+    if (element.tagName != 'image') {
+        styles = inlineStylesToObject(element)
+    }
 
     // reset all value
     font_size.value = ''
@@ -149,6 +159,19 @@ function syncAside(element) {
         font_color.setAttribute("readonly", true)
 
         fill_color.removeAttribute("readonly")
+
+        image_upload.setAttribute("readonly", true)
+
+    }
+
+    if (element.tagName == "image") {
+        text_content.setAttribute("readonly", true)
+        font_size.setAttribute("readonly", true)
+        fill_color.setAttribute("readonly", true)
+        letter_spacing.setAttribute("readonly", true)
+        font_color.setAttribute("readonly", true)
+
+        image_upload.removeAttribute("readonly")
     }
 
     text_content.value = element.textContent;
@@ -170,6 +193,35 @@ function syncAside(element) {
 
     mark_object_selected()
 
+}
+
+function emptyAside() {
+    readonly_elements = [
+        x,
+        y,
+        text_content,
+        font_size,
+        letter_spacing,
+        font_color,
+        fill_color,
+        image_upload
+    ]
+
+    data_hide_elements = [
+        delete_btn,
+        element_name,
+        element_text
+    ]
+
+    data_hide_elements.push(...hr)
+
+    readonly_elements.forEach(element => {
+        element.setAttribute("readonly", true)
+    });
+
+    data_hide_elements.forEach(element => {
+        element.setAttribute("data-hide", true)
+    });
 }
 
 function sync_pos() {
@@ -221,45 +273,78 @@ function sync_fill_color() {
 function sync_pic(event) {
     if (currentElement){
         const file = event.target.files[0];
-        console.log('found image')
-        const reader = new FileReader();
-        console.log('create reader')
+        const img_ele = document.createElement("image")
 
-        reader.readAsDataURL(file);
+        if (file) {
+            const reader = new FileReader();
 
-        reader.onload = (event) => {
-            const img = new Image();
-            console.log('create img obj')
+            reader.onload = (event) => {
+                
+                const img = new Image();
+ 
+                // img.src = event.target.result;
 
-            img.src = event.target.result;
+                img.onload = () => {
 
-            img.onload = () => {
+                    // console.log('hi')
 
-                const img_canvas = document.createElement('canvas');
+                    let height = 0
+                    let width = 0
 
-                obj_height = parseFloat(currentElement.getAttribute('height')).toFixed(2)
-                obj_width = parseFloat(currentElement.getAttribute('width')).toFixed(2)
+                    let org_height = 0
+                    let org_width = 0
 
+                    if (currentElement.getAttribute("data-org-height")) {
+                        org_height = parseFloat( currentElement.getAttribute("data-org-height"))
+                        org_width  = parseFloat( currentElement.getAttribute("data-org-width" ))
+                    } else {
+                        org_height = parseFloat( currentElement.getAttribute("height"))
+                        org_width  = parseFloat( currentElement.getAttribute("width" ))
+                    }
 
+                    const img_aspect_ratio = img.width / img.height
+                    
+                    if ( (img_aspect_ratio * org_height) < org_width ) {
+                        // console.log('height_referenced_image')
+                        height = org_height
+                        width = img_aspect_ratio * org_height
+                    } else {
+                        width = org_width
+                        height = org_width / img_aspect_ratio
+                    }
 
-                // Size Logic
-                img_aspect_ration = parseFloat(img.width / img.height).toFixed(2)
+                    const x_offset = ( parseFloat( currentElement.getAttribute("width" )) - width  ) / 2
+                    const y_offset = ( parseFloat( currentElement.getAttribute("height")) - height ) / 2
 
-                console.log (`img_aspect_ration ${img_aspect_ration}`)
-                console.log (`obj_height        ${obj_height}`)
-                console.log (`pro               ${img_aspect_ration * obj_height}`)
-                console.log (`obj_width         ${obj_width}`)
-                console.log (`boolStatement     ${ img_aspect_ration * obj_height < obj_width }`)
-                if ( (img_aspect_ration * obj_height) < obj_width) {
-                    console.log('height_referenced_image')
-                } else {
-                    console.log('width_referenced_image')
+                    
+
+                    img_ele.setAttribute("xlink:href", event.target.result)
+                    img_ele.setAttribute("height", height)
+                    img_ele.setAttribute("width", width)
+                    img_ele.setAttribute("data-org-height", org_height )
+                    img_ele.setAttribute("data-org-width",  org_width  )
+                    img_ele.setAttribute("x", parseFloat(currentElement.getAttribute("x")) + x_offset)
+                    img_ele.setAttribute("y", parseFloat(currentElement.getAttribute("y")) + y_offset)
+                    img_ele.setAttribute("preserveAspectRatio","none")
+
+                    img_ele.id = currentElement.id.replace("-placeholder","")
+
+                    currentElement.replaceWith(img_ele)
+
+                    unmark_object_selected()
+
+                    emptyAside()
+
+                    SVG_force_refresh()
                 }
-
-                const svg_img = document.createElement("image")
+                img.src = event.target.result;
             }
+
+            reader.readAsDataURL(file);
+
+        } else {
+            img_ele.src = ''
         }
-        console.log('after reader.onload')
     }
 }
 
@@ -268,14 +353,6 @@ function mark_object_selected(){
         padding = 4
         position = currentElement.getBoundingClientRect();
 
-        // select_box.setAttribute('style', `
-        //     top:${position['top'] - padding}px;
-        //     left:${position['left'] - padding}px;
-        //     height:${position['height']}px;
-        //     width:${position['width']}px;
-        //     padding: ${padding}px;
-        // `)
-
         select_box.animate({
             top: `${position['top'] - padding}px`,
             left:`${position['left'] - padding}px`,
@@ -283,7 +360,6 @@ function mark_object_selected(){
             width:`${position['width']}px`,
             padding: `${padding}px`
         } , {duration: 150, fill: "forwards"}) 
-
         
     }
 }
@@ -300,7 +376,6 @@ function unmark_object_selected(){
     select_box.removeAttribute('style')
 
 }
-
 
 SVG.addEventListener("mouseover", (event) => {
     const target = event.target.closest('*[id]:not(g):not(#A4):not(svg):not(div)');
@@ -349,33 +424,7 @@ delete_btn.addEventListener("click", () => {
 
     unmark_object_selected()
 
-    readonly_elements = [
-        x,
-        y,
-        text_content,
-        font_size,
-        letter_spacing,
-        font_color,
-        fill_color,
-        image_upload
-    ]
-
-    data_hide_elements = [
-        delete_btn,
-        element_name,
-        element_text
-    ]
-
-    data_hide_elements.push(...hr)
-
-    readonly_elements.forEach(element => {
-        element.setAttribute("readonly", true)
-    });
-
-    data_hide_elements.forEach(element => {
-        element.setAttribute("data-hide", true)
-    });
+    emptyAside()
 
 })
 
-// console.log("eventListeners are Good")

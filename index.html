@@ -43,8 +43,16 @@
     </header>
     <main class="grid">
         <div id="cert-view" class="relative">
+            
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
             <svg width="297mm" height="210mm" viewBox="0 0 297 210" id="canvas"
-                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                 version="1.1"
+                 xml:space="preserve"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 xmlns:svg="http://www.w3.org/2000/svg"
+                 >
+
                 <g>
                     <rect id="A4" style="fill:#ffffff" width="297" height="210" x="0" y="0" />
                     <g id="cert">
@@ -148,7 +156,12 @@
             </svg>
         </div>
         <aside class="flex-v">
+
+            <!-- Starting Animation -->
+
             <div id="floating-start" class="flex-v gap-15px jcc aic">
+
+
                 <svg id="float-graphic" viewBox="0 0 9.340971 9.340971" height="256" width="256">
                     <path style="fill:#0D0D0D" class="icons"
                         d="M 0.00390625 0.00390625 L 0.00390625 5.5625 C 0.59082134 5.906227 0.88251771 6.4299726 1.6894531 6.359375 C 2.695009 6.2714002 2.7492378 5.4168238 3.6640625 4.9902344 C 4.2076368 4.7367615 4.6723991 4.8123259 5.109375 4.765625 L 4.9726562 3.7792969 L 5.8691406 4.4589844 C 5.9071309 4.4275122 5.9443342 4.3935564 5.9824219 4.3554688 C 6.6961732 3.6417176 6.1886443 2.9519335 6.6152344 2.0371094 C 7.0418235 1.1222854 7.8983537 1.0680555 7.9863281 0.0625 C 7.9881281 0.04204951 7.9872313 0.02370591 7.9882812 0.00390625 L 0.00390625 0.00390625 z "
@@ -165,17 +178,26 @@
                 <p>Click on any element, <br>
                     and start editing it !...</p>
             </div>
+
+            <!-- Element Name -->
+
             <span id="element-text" data-hide=true>Element : </span>
             <h2 id="element-name" data-hide=true></h2>
+
             <hr data-hide=true>
+
+            <!-- Position & Delete -->
+
             <div class="field flex jcsb aic">
                 <label for="x-pos">Horizontal Position (X)</label>
-                <input class="w-6rem" name="x-pos" id="x-pos" type="number" value="#0F0F0F" readonly />
+                <input class="w-6rem" name="x-pos" id="x-pos" type="number" step="0.1" readonly />
             </div>
+
             <div class="field flex jcsb aic">
                 <label for="y-pos">Vertical Position (Y)</label>
-                <input class="w-6rem" name="y-pos" id="y-pos" type="number" value="#0F0F0F" readonly />
+                <input class="w-6rem" name="y-pos" id="y-pos" type="number" step="0.1"  readonly />
             </div>
+
             <div class="field flex jcsb aic" >
                 <label for="delete-btn">Delete Element?</label>
                 <button id="delete-btn" class="w-6rem red-btn" data-hide=true>
@@ -186,12 +208,17 @@
                     <span>Delete</span>
                 </button>
             </div>
+
             <hr data-hide=true>
+
+            <!-- Text & Image Content -->
+
             <div class="field">
                 <label class="block label-margin-bottom" for="text-content">Text Content</label>
                 <textarea class="block w-100p" name="text-content" id="text-content" rows="3" readonly></textarea>
                 <hr data-hide=true>
             </div>
+
             <div class="field">
                 <span class="block label-margin-bottom">Replace Image</span>
                 <div class="upload-element label-margin-bottom">
@@ -204,16 +231,19 @@
                     </label>
                     <input class="inline" name="image-upload" id="image-upload" type="file" readonly/>
                 </div>
-                <span>This Feature doesn't work as of now!</span>
+
                 <hr data-hide=true>
             </div>
+
+            <!-- Element Properties -->
+
             <div class="field flex jcsb aic">
                 <label for="font-size">Font Size</label>
-                <input class="w-6rem" name="font-size" id="font-size" type="number" readonly />
+                <input class="w-6rem" name="font-size" id="font-size" type="number" step="0.1"  readonly />
             </div>
             <div class="field flex jcsb aic">
                 <label for="letter-spacing">Line Spacing</label>
-                <input class="w-6rem" name="letter-spacing" id="letter-spacing" type="number" readonly />
+                <input class="w-6rem" name="letter-spacing" id="letter-spacing" type="number" step="0.1"  readonly />
             </div>
             <div class="field flex jcsb aic">
                 <label for="font-color">Font Color</label>
@@ -223,6 +253,7 @@
                 <label for="fill-color">Fill Color</label>
                 <input class="w-6rem" name="fill-color" id="fill-color" type="color" value="#0F0F0F" readonly />
             </div>
+
         </aside>
     </main>
     <div id="select-box"></div>
