@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="commonClasses.css">
     <link href="inter/inter.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/svg2pdf.js@1.5.0/dist/svg2pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-yworks@2.1.1/dist/jspdf.min.js"></script>
+
 </head>
 
 <body class="grid relative" data-darkmode="false">
@@ -32,7 +36,7 @@
                 </svg>
                 <span>Switch to Dark Mode</span>
             </button>
-            <button id="exportbtn" disabled>
+            <button id="exportbtn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path style="fill:#0D0D0D" class="icons"
                         d="M202.87-111.869q-37.783 0-64.392-26.609-26.609-26.609-26.609-64.392V-309q0-19.152 13.174-32.326T157.37-354.5q19.152 0 32.326 13.174T202.87-309v106.13h554.26v-554.26H202.87V-651q0 19.152-13.174 32.326T157.37-605.5q-19.153 0-32.327-13.174T111.869-651v-106.13q0-37.783 26.609-64.392 26.609-26.609 64.392-26.609h554.26q37.783 0 64.392 26.609 26.609 26.609 26.609 64.392v554.26q0 37.783-26.609 64.392-26.609 26.609-64.392 26.609H202.87ZM459.304-434.5H157.37q-19.153 0-32.327-13.174T111.869-480q0-19.152 13.174-32.326T157.37-525.5h301.934l-66.826-66.826q-13.435-13.435-13.054-31.707.38-18.271 13.054-31.945 13.435-13.674 32.087-14.055 18.653-.38 32.326 13.294l144.914 144.674q6.717 6.717 9.815 14.913 3.098 8.195 3.098 17.152t-3.098 17.152q-3.098 8.196-9.815 14.913L456.891-303.022q-13.434 13.435-32.206 13.055-18.772-.381-32.207-14.055-12.674-13.434-13.054-31.826-.381-18.391 13.054-31.826l66.826-66.826Z" />
@@ -61,32 +65,32 @@
                             <rect style="fill:#aaffaa" id="img-left-placeholder" width="43.31049" height="26.389217"
                                 x="16" y="16" />
                             <text
-                                style="font-weight:500;font-size:5.5px;font-family:Inter;text-align:start;letter-spacing:1.8px;text-anchor:middle;fill:#000000"
+                                style="font-weight:600;font-size:5.5px;font-family:Inter;text-align:start;text-anchor:middle;fill:#000000"
                                 x="148.5" y="30" id="certificate-title"> CERTIFICATE OF PARTICIPATION </text>
                             <rect style="fill:#aaffaa" id="img-right-placeholder" width="43.31049" height="26.389217"
                                 x="238" y="16" />
                         </g>
                         <g id="cert-body">
                             <text xml:space="preserve"
-                                style="font-weight:500;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;letter-spacing:0px;text-anchor:middle;fill:#000000;"
+                                style="font-weight:600;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;text-anchor:middle;fill:#000000;"
                                 x="148.5" y="73" id="content-line-0">This is to certify that</text>
                             <text xml:space="preserve"
-                                style="font-weight:600;font-size:15px;font-family:Inter;text-align:center;text-align:start;letter-spacing:0px;text-anchor:middle;fill:#000000;"
+                                style="font-weight:600;font-size:15px;font-family:Inter;text-align:center;text-align:start;text-anchor:middle;fill:#000000;"
                                 x="148.5" y="99" id="name">Karan Anand</text>
                             <text xml:space="preserve"
-                                style="font-weight:500;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;letter-spacing:0px;text-anchor:middle;fill:#000000;"
+                                style="font-weight:600;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;text-anchor:middle;fill:#000000;"
                                 x="148.5" y="112" id="content-line-1"
                                 >in recognition of their exceptional performance in Tricky Circuit by SPICE Society,</text>
                             <text xml:space="preserve"
-                                style="font-weight:500;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;letter-spacing:0px;text-anchor:middle;fill:#000000;"
+                                style="font-weight:600;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;text-anchor:middle;fill:#000000;"
                                 x="148.5" y="121" id="content-line-2"
                                 > on Feb 25. His/Her hard work, dedication, and perseverance have been instrumental</text>
                             <text xml:space="preserve"
-                                style="font-weight:500;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;letter-spacing:0px;text-anchor:middle;fill:#000000;"
+                                style="font-weight:600;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;text-anchor:middle;fill:#000000;"
                                 x="148.5" y="130" id="content-line-3"
                                 >in his/her success, and we are honored to recognize his/her accomplishments.</text>
                             <text xml:space="preserve"
-                                style="font-weight:500;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;letter-spacing:0px;text-anchor:middle;fill:#000000;"
+                                style="font-weight:600;font-size:5.5px;font-family:Inter;text-align:center;text-align:start;text-anchor:middle;fill:#000000;"
                                 x="148.5" y="139" id="content-line-4">And a few more good things about him/her</text>
                         </g>
                         <g id="cert-sign">
@@ -98,11 +102,11 @@
                                     d="M 16.3,178 H 74.3" id="underline-s1" />
 
                                 <text
-                                    style="font-weight:500;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="45" y="188" id="name-s1">Dr. Few Bajaj</text>
 
                                 <text
-                                    style="font-weight:500;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="45" y="194" id="position-s1">Associate Professer, NIT</text>
                             </g>
                             <g id="sign-2">
@@ -113,11 +117,11 @@
                                     d="M 85.3,178 H 143.3" id="underline-s2" />
 
                                 <text
-                                    style="font-weight:500;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="114" y="188" id="name-s2">Dr. Maybe Sharma</text>
 
                                 <text
-                                    style="font-weight:500;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="114" y="194" id="position-s2">Associate Professer, IIT</text>
                             </g>
                             <g id="sign-3">
@@ -128,11 +132,11 @@
                                     d="M 154.2,178 H 212.2" id="underline-s3" />
 
                                 <text
-                                    style="font-weight:500;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="183" y="188" id="name-s3">Dr. Anything Verma</text>
 
                                 <text
-                                    style="font-weight:500;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="183" y="194" id="position-s3">Associate Professer, NIT</text>
                             </g>
                             <g id="sign-4">
@@ -143,11 +147,11 @@
                                     d="M 223,178 H 281" id="underline-s4" />
 
                                 <text
-                                    style="font-weight:500;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:5px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="252" y="188" id="name-s4">Dr. Something Singh</text>
 
                                 <text
-                                    style="font-weight:500;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
+                                    style="font-weight:600;font-size:4px;font-family:Inter;text-align:center;text-anchor:middle;fill:#000000"
                                     x="252" y="194" id="position-s4">Associate Professer, IIT</text>
                             </g>
                         </g>

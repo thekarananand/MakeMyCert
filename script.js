@@ -1,7 +1,7 @@
 const SVG = document.querySelector('#canvas');
 const text_content = document.querySelector('#text-content');
 const font_size = document.querySelector('#font-size');
-const letter_spacing = document.querySelector('#letter-spacing');
+// const letter_spacing = document.querySelector('#letter-spacing');
 const font_color = document.querySelector('#font-color');
 const fill_color = document.querySelector('#fill-color');
 const element_text = document.querySelector("#element-text")
@@ -128,7 +128,7 @@ function syncAside(element) {
     if (element.tagName == 'text') {
         text_content.removeAttribute("readonly")
         font_size.removeAttribute("readonly")
-        letter_spacing.removeAttribute("readonly")
+        // letter_spacing.removeAttribute("readonly")
         font_color.removeAttribute("readonly")
         fill_color.setAttribute("readonly", true)
         image_upload.setAttribute("readonly", true)
@@ -139,7 +139,7 @@ function syncAside(element) {
     if (element.tagName == 'rect') {
         text_content.setAttribute("readonly", true)
         font_size.setAttribute("readonly", true)
-        letter_spacing.setAttribute("readonly", true)
+        // letter_spacing.setAttribute("readonly", true)
         font_color.setAttribute("readonly", true)
         fill_color.removeAttribute("readonly")
         if (element.id.includes("-placeholder")){
@@ -158,7 +158,7 @@ function syncAside(element) {
 
         text_content.setAttribute("readonly", true)
         font_size.setAttribute("readonly", true)
-        letter_spacing.setAttribute("readonly", true)
+        // letter_spacing.setAttribute("readonly", true)
         font_color.setAttribute("readonly", true)
 
         fill_color.removeAttribute("readonly")
@@ -171,7 +171,7 @@ function syncAside(element) {
         text_content.setAttribute("readonly", true)
         font_size.setAttribute("readonly", true)
         fill_color.setAttribute("readonly", true)
-        letter_spacing.setAttribute("readonly", true)
+        // letter_spacing.setAttribute("readonly", true)
         font_color.setAttribute("readonly", true)
 
         image_upload.removeAttribute("readonly")
@@ -185,9 +185,9 @@ function syncAside(element) {
         font_size.value = styles['font-size'].replace('px', '')
     }
 
-    if (styles['letter-spacing']) {
-        letter_spacing.value = styles['letter-spacing'].replace('px', '')
-    }
+    // if (styles['letter-spacing']) {
+    //     letter_spacing.value = styles['letter-spacing'].replace('px', '')
+    // }
 
     if (styles['fill']) {
         font_color.value = styles['fill']
@@ -210,7 +210,7 @@ function emptyAside() {
         y,
         text_content,
         font_size,
-        letter_spacing,
+        // letter_spacing,
         font_color,
         fill_color,
         image_upload
@@ -256,13 +256,13 @@ function sync_font_size() {
     }
 }
 
-function sync_letter_spacing() {
-    if (currentElement) {
-        styles['letter-spacing'] = `${letter_spacing.value}px`;
-        objectToInlineStyles(currentElement)
-        mark_object_selected()
-    }
-}
+// function sync_letter_spacing() {
+//     if (currentElement) {
+//         styles['letter-spacing'] = `${letter_spacing.value}px`;
+//         objectToInlineStyles(currentElement)
+//         mark_object_selected()
+//     }
+// }
 
 function sync_font_color() {
     if (currentElement) {
@@ -440,7 +440,7 @@ SVG.addEventListener("click", (event) => {
 
 text_content.addEventListener("input", sync_text_content);
 font_size.addEventListener("input", sync_font_size);
-letter_spacing.addEventListener("input", sync_letter_spacing);
+// letter_spacing.addEventListener("input", sync_letter_spacing);
 font_color.addEventListener("input", sync_font_color);
 fill_color.addEventListener("input", sync_fill_color);
 x.addEventListener("input", sync_pos);
@@ -463,3 +463,23 @@ delete_btn.addEventListener("click", () => {
 
 })
 
+document.querySelector('#exportbtn').addEventListener('click', () => {
+    const doc = new jsPDF({
+		orientation: "landscape",
+		unit: "mm",
+		format: [297, 210]
+	});
+
+	// doc.addFont("./inter-ttf/Inter-Medium.ttf", "Inter", "normal");
+	doc.addFont("./inter-ttf/Inter-SemiBold.ttf", "Inter", "normal");
+	
+	doc.setFont('Inter')
+
+	svg2pdf(document.querySelector("#canvas"), doc, {
+		  xOffset: 0,
+		  yOffset: 0,
+		  scale: 1
+	});
+
+	doc.save('Certificate.pdf');
+})
