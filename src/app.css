@@ -11,7 +11,7 @@
     --element-margin: 1rem;
 }
 
-body[data-color-scheme="light"] {
+body:has(main[data-color-scheme="light"]) {
     --color-text-1: hsl(0, 0%, 0%);
     --color-text-2: hsl(0, 0%, 30%);
 
@@ -22,7 +22,7 @@ body[data-color-scheme="light"] {
     --color-border: hsl(0, 0%, 55%);
 }
 
-body[data-color-scheme="dark"] {
+body:has(main[data-color-scheme="dark"]) {
     --color-text-1: hsl(0, 0%, 95%);
     --color-text-2: hsl(210, 1%, 62%);
 
@@ -33,6 +33,9 @@ body[data-color-scheme="dark"] {
     --color-border: hsl(0, 0%, 47%);
 }
 
+html:has(main[data-color-scheme="light"]) { color-scheme: light; }
+html:has(main[data-color-scheme="dark"] ) { color-scheme: dark; }
+
 * {
     padding: 0;
     margin: 0;
@@ -41,5 +44,33 @@ body[data-color-scheme="dark"] {
     font-weight: var(--fw-regular);
 }
 
-html:has(body[data-color-scheme="light"]) { color-scheme: light; }
-html:has(body[data-color-scheme="dark"] ) { color-scheme: dark; }
+body {
+    background-color: var(--color-bg-2);
+    height: 100vh;
+    grid-template-rows: 4rem ;
+}
+
+
+/* --- Common Classes ----------------------------- */
+
+.inline {display: inline;}
+
+.block {display: block;}
+
+.grid {display: grid;}
+
+.flex {display: flex;}
+
+.flex-v {display: flex; flex-direction: column;}
+
+.jcc {justify-content: center;}
+
+.jcsa {justify-content: space-around;}
+
+.jcsb {justify-content: space-between;}
+
+.jce {justify-content: end;}
+
+.aic {align-items: center;}
+
+.aie {align-items: end;}
